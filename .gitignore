@@ -1,2 +1,16 @@
 **design patterns udemy
 design patterns udemy.rar
+remove island/.vs/remove island/v15/.suo
+*.db
+*.ipch
+*.exe
+*.ilk
+*.pdb
+*.log
+*.enc
+*.tlog
+*.obj
+*.idb
+remove island/remove island/remove island.vcxproj.user
+*.filters
+*.vcxproj
