@@ -7,4 +7,6 @@
 #include <vector>
 #include "World.hpp"
 
+#define FALSE 0
+#define TRUE  1
 

@@ -5,7 +5,7 @@
 
 int main()
 {
-	World world(  100,100 );
+	World world(  10,10 );
 
 	world.out();
 

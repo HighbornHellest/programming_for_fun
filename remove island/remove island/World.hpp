@@ -17,12 +17,14 @@ public:
 	{
 		for (int i=0; i< size; ++i)
 		{
-			std::cout<< m_world.at(i);
 			if (i%width == 0)
 				std::cout << std::endl;
+			std::cout<< m_world.at(i);
+			
 		}
 	}
 
-
+	void search_island();
+	bool remove_if_island(int , int);
 };
 
