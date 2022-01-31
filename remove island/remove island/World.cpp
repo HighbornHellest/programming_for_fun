@@ -58,21 +58,28 @@ void World::search_island()
 bool World::remove_if_island(int a, int previous)
 {
 
-
-	/*if (a <= this->width || a % width == 0 || a % width == width - 1 || a >= size - width)
-	{
-	
-
-	}*/
+	/*mainland*/
 	//if upper edge and it's a word
 	if (a <= this->width && m_world.at(a) ==1)
 	{
 		return TRUE;
 	}
+	//left side 
 	if (a%width == 0 && m_world.at(a)==1)
 	{
 		return TRUE;
 	}
+	//right side
+	if (a%width == width - 1 && m_world.at(a) == 1)
+	{
+		return TRUE;
+	}
+	//bottom side
+	if (a > m_world.size() - width && m_world.at(a) == 1)
+	{
+		return TRUE;
+	}
+	/*end of mainland*/
 
 	//up, down, left, right
 	if ( remove_if_island(a-width,a) || remove_if_island(a+width,a)||remove_if_island(a-1,a) || remove_if_island(a+1,a))
