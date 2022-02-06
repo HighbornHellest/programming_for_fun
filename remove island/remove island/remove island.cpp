@@ -7,11 +7,11 @@
 
 int main()
 {
-	World world(  10,10 );
+	World world( 10,10 );
 
 	world.out();
-	std::cout << std::endl << std::endl << std::endl << std::endl;
-
 	world.get_mainland();
 
+	std::cout << std::endl << std::endl << std::endl << "solution:" << std::endl << std::endl << std::endl;
+	world.out();
 }

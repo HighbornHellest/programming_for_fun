@@ -6,7 +6,8 @@ World::World(int a, int b)
 	this->width=a;
 	this->height=b;
 	this->size=a*b;
-	generate_new_world();
+	//generate_new_world();
+	this->m_world = { '1', '0', '0', '0', '0', '1', '1', '0', '1', '0', '1', '1', '1', '0', '1', '0', '0', '1', '0', '0', '0', '1', '1', '1', '0','1','0','0','0','0','1','1','0', '1', '0', '1', '1', '1', '0', '1', '0', '0', '1', '0', '0', '0', '1', '1', '1','0','0','0','1','1','0','0','0','1','0','0','1','0','0','1','0','1','0','0','0','1','0','1','0','0','0','1','1','0','0','1','0','0','0','0','1','0','1','1','0','1','0','1','1','0','0','1','0','1','0','1','1','0','1','1','1','1','1','1','0','0','0','1','1','0','1','1','1','1','1','0','1','1','1','0','1'};
 }
 
 void World::generate_new_world()
@@ -48,12 +49,91 @@ void World::get_mainland()
 
 		if (this->m_world[i] == '1' && is_border(i))
 		{
-			borders.emplace(std::make_tuple(i, i), TRUE);
+
+			borders.emplace(i, TRUE);
+			bordercrawl(i, i);
+		}
+	}
+	delete_islands();
+}
+
+//if out of bounds, return true, else false
+bool World::outofbounds(int i)
+{
+	if (i == 0)
+		return FALSE;
+
+	if (i - this->width < 0 || i + width > this->m_world.size() || i + 1 > this->m_world.size() || i - 1 < 0)
+		return TRUE;
+	return FALSE;
+}
+
+
+//previous i, current i
+void World::bordercrawl(int pi, int i)
+{
+	
+	if (!is_border(i))
+	{
+	
+		//up
+		int ti = i - width;
+		if (!outofbounds(ti) && ti != pi)
+		{
+			if (m_world[ti] == '1')
+			{
+				std::cout <<"i: " <<i<<" "<< m_world[i] << std::endl;
+				borders.emplace(i, TRUE);
+				bordercrawl(i, ti);
+			}
+		}
+		//down
+		ti = i + width;
+		if (!outofbounds(ti) && ti != pi)
+		{
+			if (m_world[ti] == '1')
+			{
+				borders.emplace(i, TRUE);
+				bordercrawl(i, ti);
+			}
+		}
+		//left
+		ti = i - 1;
+		if (!outofbounds(ti) && ti != pi)
+		{
+			if (m_world[ti] == '1')
+			{
+				borders.emplace(i, TRUE);
+				bordercrawl(i, ti);
+			}
+		}
+
+		//right
+	
+		ti = i + 1;
+		if (!outofbounds(ti) && ti != pi)
+		{
+			if (m_world[ti] == '1')
+			{
+				borders.emplace(i, TRUE);
+				bordercrawl(i, ti);
+			}
 		}
 	}
 }
 
-void World::bordercrawl()
+void World::delete_islands()
 {
+	
+	for (int i = 0; i < size; ++i)
+	{
+		auto it = borders.find(i);
+		
 
+		if (it==borders.end())
+		{
+			this->m_world.at(i) = '0';
+		}
+	
+	}
 }

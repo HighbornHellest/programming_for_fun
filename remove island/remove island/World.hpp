@@ -6,7 +6,8 @@ class World
 private:
 	unsigned long int width, height, size;
 	std::vector<char> m_world;
-	std::map< std::tuple<int, int>, int> borders;
+	std::map< int, bool> borders;
+	bool outofbounds(int);
 
 bool is_border(int i);
 
@@ -23,12 +24,14 @@ public:
 		{
 			if (i%width == 0)
 				std::cout << std::endl;
-			std::cout<< m_world.at(i);
+			std::cout<< m_world[i];
 			
 		}
 	}
 
 	void get_mainland();
-	void bordercrawl();
+
+	void bordercrawl(int,int);
+	void delete_islands();
 };
 
