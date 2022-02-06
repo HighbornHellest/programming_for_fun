@@ -1,6 +1,7 @@
 #pragma once
 
 #include "iostream"
+#include <map>
 #include "list"
 #include <stdlib.h>
 #include <time.h>

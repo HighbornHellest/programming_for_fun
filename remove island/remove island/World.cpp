@@ -25,66 +25,35 @@ void World::generate_new_world()
 	}
 }
 
-std::vector<char> World::return_word()
+
+bool World::is_border(int i)
 {
-	return this->m_world;
+	if (i == 0)
+		return true;
+
+	int s = m_world.size();
+
+	//left		//right				//top		/bottom
+	if (s%i == 0 || s % i == s - 1 || i < s - 1 || i >= s - width)
+	{
+		return true;
+	}
+	return false;
 }
 
-void World::search_island()
+void World::get_mainland()
 {
-	for (int i = 0; i < size; ++i)
+	for (int i = 0; i < this->m_world.size(); ++i)
 	{
-		//edges
-		if (i <= this->width || i%width==0 || i%width==width-1 || i>=size-width)
-		{
-			continue;
-		}
-		if (m_world.at(i) == 0)
-		{
-			continue;
-		}
-		else
-		{
 
+		if (this->m_world[i] == '1' && is_border(i))
+		{
+			borders.emplace(std::make_tuple(i, i), TRUE);
 		}
-		
 	}
 }
 
-
-
-//if it turns out to be an island, return false
-//if there's a path to mainland, return true
-bool World::remove_if_island(int a, int previous)
+void World::bordercrawl()
 {
-
-	/*mainland*/
-	//if upper edge and it's a word
-	if (a <= this->width && m_world.at(a) ==1)
-	{
-		return TRUE;
-	}
-	//left side 
-	if (a%width == 0 && m_world.at(a)==1)
-	{
-		return TRUE;
-	}
-	//right side
-	if (a%width == width - 1 && m_world.at(a) == 1)
-	{
-		return TRUE;
-	}
-	//bottom side
-	if (a > m_world.size() - width && m_world.at(a) == 1)
-	{
-		return TRUE;
-	}
-	/*end of mainland*/
-
-	//up, down, left, right
-	if ( remove_if_island(a-width,a) || remove_if_island(a+width,a)||remove_if_island(a-1,a) || remove_if_island(a+1,a))
-	{
-		
-	}
 
 }
